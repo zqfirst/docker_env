@@ -1,3 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 .env
 .idea
+Www/*
+Nginx/conf/conf.d/*
