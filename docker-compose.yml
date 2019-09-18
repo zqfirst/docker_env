@@ -10,6 +10,7 @@ services:
       - "${HTTP_SWOOLE_PORT}:9572"
     volumes:
       - ${WORK_DIR}:/data/www
+    working_dir: /data/www
     networks:
       - nginx-php
 
@@ -19,6 +20,7 @@ services:
     restart: on-failure
     depends_on:
       - php
+    working_dir: /data/www
     volumes:
       - ${WORK_DIR}:/data/www
       - ${NGINX_LOG_DIR}:/var/logs
