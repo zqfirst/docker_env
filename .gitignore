@@ -3,3 +3,5 @@
 .idea
 Www/*
 Nginx/conf/conf.d/*
+Nginx/logs/*
+Php/logs/

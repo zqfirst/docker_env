@@ -17,8 +17,8 @@ Usage: ${0##*/} COMMAND
     sw-stop     stop swoole serve
     rebuild     rebuild all containers from local Dockerfile
     remove      remove all containers
-    s-nginx login shell on nginx docker conatainer
-    s-php   login shell on php docker conatainer
+    s-nginx     login shell on nginx docker conatainer
+    s-php       login shell on php docker conatainer
 EOF
     exit 0;
 
@@ -95,6 +95,13 @@ case "$1" in
             printf "\033[32;49;1m 中间镜像清理完成 \033[39;49;0m \n"
         fi
         ;;
+
+    clearAll)
+        #清除所有镜像 和 容器
+        docker ps -a | awk '{print $1}' | xargs docker container rm;
+         docker images -a | awk '{print $3}' | xargs docker rmi --force;
+        ;;
+
     *)
             Help
         ;;

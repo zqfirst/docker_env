@@ -3,32 +3,45 @@ version: '3'
 services:
 
   php:
-    image: php:fpm
+#    build:
+#      context: ./Php
+    image: 18736050080/myphp_new
     container_name: php-fpm
     restart: always
     ports:
       - "${HTTP_SWOOLE_PORT}:9572"
+      - "3333:9582"
+      - "4444:9592"
     volumes:
       - ${WORK_DIR}:/data/www
+      - ${PHP_LOG_DIR}:/var/opt/remi/php73/log
     working_dir: /data/www
+    expose:
+      - 9000
+      - 9572
+      - 9582
+      - 9592
     networks:
       - nginx-php
 
   nginx:
     image: nginx
     container_name: ng
-    restart: on-failure
+    restart: always
     depends_on:
       - php
-    working_dir: /data/www
     volumes:
       - ${WORK_DIR}:/data/www
       - ${NGINX_LOG_DIR}:/var/logs
       - ${NGINX_CONF_DIR}/nginx.conf:/etc/nginx/nginx.conf
       - ${NGINX_CONF_DIR}/conf.d:/etc/nginx/conf.d
+    working_dir: /data/www
     ports:
       - "${HTTP_PORT}:80"
       - "${HTTPS_PORT}:443"
+    expose:
+      - 443
+      - 80
     networks:
       - nginx-php
 
