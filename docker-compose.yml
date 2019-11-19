@@ -24,12 +24,29 @@ services:
     networks:
       - nginx-php
 
+  go:
+    image: 18736050080/go
+    container_name: mygo
+    restart: always
+    ports:
+      - "9888:9888"
+      - "22:22"
+    volumes:
+      - ${GOPATH}:/home/golang
+    working_dir: /home/golang
+    expose:
+      - 9888
+      - 22
+    networks:
+      - nginx-go
+
   nginx:
     image: nginx
     container_name: ng
     restart: always
     depends_on:
       - php
+      - go
     volumes:
       - ${WORK_DIR}:/data/www
       - ${NGINX_LOG_DIR}:/var/logs
@@ -44,7 +61,10 @@ services:
       - 80
     networks:
       - nginx-php
+      - nginx-go
 
 networks:
   nginx-php:
+    driver: bridge
+  nginx-go:
     driver: bridge
