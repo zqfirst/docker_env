@@ -9,9 +9,9 @@ RUN set -e \
     && ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key  \
     && ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key  \
     && ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key \
-    && /bin/echo 'root:123' |chpasswd \
-    && useradd tpythoner  \
-    && /bin/echo 'tpythoner:123' |chpasswd   \
+#    && /bin/echo 'root:123' |chpasswd \
+#    && useradd tpythoner  \
+#    && /bin/echo 'tpythoner:123' |chpasswd   \
     && /bin/sed -i 's/.*session.*required.*pam_loginuid.so.*/session optional pam_loginuid.so/g' /etc/pam.d/sshd   \
     && /bin/echo -e "LANG=\"en_US.UTF-8\"" > /etc/default/local   \
     && yum install -y wget   \
@@ -20,6 +20,7 @@ RUN set -e \
     && yum remove -y wget \
     && tar zxvf go.tar.gz -C /usr/local/   \
     && echo "export GOROOT=/usr/local/go" >> /root/.bashrc   \
+    && echo "export GO111MODULE=on" >> /root/.bashrc   \
     && echo "export GOBIN=\$GOROOT/bin" >> /root/.bashrc   \
     && echo "export PATH=\$PATH:\$GOBIN" >> /root/.bashrc   \
     && echo "export GOPATH=/home/golang" >> /root/.bashrc \
