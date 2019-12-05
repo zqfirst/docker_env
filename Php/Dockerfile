@@ -1,6 +1,6 @@
 # Fend php image
 
-FROM centos
+FROM centos:7
 
 ARG php_version
 ARG swoole
@@ -10,14 +10,16 @@ ARG swoole
 # --build-arg swoole=4.4.5
 ##
 ENV PHP_VERSION=${php_version:-"php73"}
-ENV SWOOLE_VERSION=${swoole:-"4.4.5"}
+ENV SWOOLE_VERSION=${swoole:-"4.4.12"}
 ENV FPM_CONF_DIR="/etc/opt/remi/${PHP_VERSION}"
 ENV FPM_CONFD_DIR="/etc/opt/remi/${PHP_VERSION}/php-fpm.d"
 
 RUN set -ex \
     && rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi \
-    && rpm -ivh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-    && rpm -ivh https://mirrors.tuna.tsinghua.edu.cn/remi/enterprise/remi-release-7.rpm \
+#    && rpm -ivh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+#    && rpm -ivh https://mirrors.tuna.tsinghua.edu.cn/remi/enterprise/remi-release-7.rpm \
+    && rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+    && rpm -Uvh http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
     && yum -y update \
     && yum install -y gcc \
         gcc-c++ \
@@ -90,7 +92,7 @@ RUN set -ex \
     && ( \
         cd swoole \
         && phpize \
-        && ./configure --enable-mysqlnd --enable-sockets --enable-openssl \
+        && ./configure --enable-mysqlnd --enable-sockets --enable-openssl --enable-http2  \
         && make -s -j$(nproc) && make install \
        ) \
     && echo "extension=swoole.so" > /etc/opt/remi/${PHP_VERSION}/php.d/swoole.ini \
@@ -99,19 +101,23 @@ RUN set -ex \
     && php -m \
     && php --ri swoole \
     # install composer
-    && php -r "readfile('https://getcomposer.org/installer');" | php \
-    && mv composer.phar /usr/local/bin/composer \
-    && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
-    && composer self-update \
+    && ( \
+        cd /tmp \
+        && curl -SL "http://m.94coder.cn/composer.phar" -o composer.phar | php \
+        && chmod 755 composer.phar \
+        && mv composer.phar /usr/local/bin/composer \
+        && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
+        && composer self-update \
+    ) \
     # ---------- clear works ----------
-    && rm -rf /tmp/* /var/cache/*  /tmp/* /usr/share/man /usr/share/php7 \
+    && rm -rf /tmp/* /var/cache/*  /usr/share/man /usr/share/php7 \
     && echo -e "\n\033[42;37m Build Completed :).\033[0m\n"
 
 WORKDIR /home/www
 
 # Override stop signal to stop process gracefully
 # https://github.com/php/php-src/blob/17baa87faddc2550def3ae7314236826bc1b1398/sapi/fpm/php-fpm.8.in#L163
-STOPSIGNAL SIGQUIT
+STOPSIGNAL SIGKILL
 
 EXPOSE 9000 9572
 
