@@ -3,15 +3,13 @@ version: '3'
 services:
 
   php:
-#    build:
-#      context: ./Php
-    image: 18736050080/myphp_new
+    build:
+      context: ./Php
+#    image: 18736050080/myphp_new
     container_name: php-fpm
     restart: always
     ports:
       - "${HTTP_SWOOLE_PORT}:9572"
-      - "3333:9582"
-      - "4444:9592"
     volumes:
       - ${WORK_DIR}:/data/www
       - ${PHP_LOG_DIR}:/var/opt/remi/php73/log
@@ -25,7 +23,7 @@ services:
       - nginx-php
 
   go:
-    image: 18736050080/go
+    image: 18736050080/mygo:v1
     container_name: mygo
     restart: always
     ports:
