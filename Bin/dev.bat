@@ -68,7 +68,7 @@ if "%command%" == "sw-start" (
 
     echo Swoole service start...
     echo.
-    docker exec -it fend-php /bin/bash -c "php /home/www/icenter/bin/start.php start"
+    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php start"
     echo Swoole service is up and running
     goto:EOF
 )
@@ -78,7 +78,7 @@ if "%command%" == "sw-rstart" (
 
     echo Swoole service start...
     echo.
-    docker exec -it fend-php /bin/bash -c "php /home/www/icenter/bin/start.php rstart"
+    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php rstart"
     echo Swoole service is up and running
     goto:EOF
 )
@@ -88,7 +88,7 @@ if "%command%" == "sw-stop" (
 
     echo Swoole service stop...
     echo.
-    docker exec -it php /bin/bash -c "php /home/www/icenter/bin/start.php  kill"
+    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php  kill"
     echo Swoole service is stopped
     goto:EOF
 )

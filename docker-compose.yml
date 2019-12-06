@@ -17,9 +17,9 @@ services:
       - 6379
 
   php:
-#    build:
-#      context: ./Php
-    image: 18736050080/myphp:v1
+    build:
+      context: ./Php
+#    image: 18736050080/myphp:v1
     container_name: php
     restart: always
     ports:
@@ -27,6 +27,8 @@ services:
     volumes:
       - ${DOCKER_ENV}${WORK_DIR}:/data/www
       - ${DOCKER_ENV}${PHP_LOG_DIR}:/var/opt/remi/php73/log
+      - ${DOCKER_ENV}${PHP_WWW_LOG_DIR}:/home/logs
+      - ${HOME_DIR}.ssh:/root/.ssh
     working_dir: /data/www
     expose:
       - 9000
@@ -42,6 +44,7 @@ services:
     ports:
       - "9888:9888"
       - "9788:9788"
+      - "9572:9572"
       - "22:22"
     volumes:
       - ${GOPATH}:/home/golang

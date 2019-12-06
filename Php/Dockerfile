@@ -38,6 +38,7 @@ RUN set -ex \
         openssl-devel \
         automake \
         make \
+        git \
     && yum --enablerepo=remi -y install \
     ${PHP_VERSION}-php \
     ${PHP_VERSION}-php-pear \
