@@ -2,17 +2,31 @@ version: '3'
 
 services:
 
+  redis:
+    image : redis:5.0
+    container_name: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: always
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - ${DOCKER_ENV}${REDIS_CONF}:/usr/local/etc/redis/redis.conf
+      - ${DOCKER_ENV}${REDIS_DATA}:/data
+      - ${DOCKER_ENV}${REDIS_LOGS}:/var/log/redis.log
+    expose:
+      - 6379
+
   php:
-    build:
-      context: ./Php
-#    image: 18736050080/myphp_new
-    container_name: php-fpm
+#    build:
+#      context: ./Php
+    image: 18736050080/myphp:v1
+    container_name: php
     restart: always
     ports:
       - "${HTTP_SWOOLE_PORT}:9577"
     volumes:
-      - ${WORK_DIR}:/data/www
-      - ${PHP_LOG_DIR}:/var/opt/remi/php73/log
+      - ${DOCKER_ENV}${WORK_DIR}:/data/www
+      - ${DOCKER_ENV}${PHP_LOG_DIR}:/var/opt/remi/php73/log
     working_dir: /data/www
     expose:
       - 9000
@@ -43,10 +57,10 @@ services:
       - php
       - go
     volumes:
-      - ${WORK_DIR}:/data/www
-      - ${NGINX_LOG_DIR}:/var/logs
-      - ${NGINX_CONF_DIR}/nginx.conf:/etc/nginx/nginx.conf
-      - ${NGINX_CONF_DIR}/conf.d:/etc/nginx/conf.d
+      - ${DOCKER_ENV}${WORK_DIR}:/data/www
+      - ${DOCKER_ENV}${NGINX_LOG_DIR}:/var/logs
+      - ${DOCKER_ENV}${NGINX_CONF_DIR}/nginx.conf:/etc/nginx/nginx.conf
+      - ${DOCKER_ENV}${NGINX_CONF_DIR}/conf.d:/etc/nginx/conf.d
     working_dir: /data/www
     ports:
       - "${HTTP_PORT}:80"

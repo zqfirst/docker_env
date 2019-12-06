@@ -3,6 +3,7 @@
 set binDir=%~dp0
 set match=false
 set command=%1
+set container=%2
 
 
 if "%command%" == "" (
@@ -56,12 +57,28 @@ if "%command%" == "clear" (
     goto:EOF
 )
 
+if "%command%" == "log" (
+    set match=true
+    docker logs --tail 50 --follow --timestamps %container%
+    goto:EOF
+)
+
 if "%command%" == "sw-start" (
     set match=true
 
     echo Swoole service start...
     echo.
-    docker exec -it fend-php /bin/bash -c "php /home/www/fend/Bin/fend swoole -c /home/www/fend/App/Config/Swoole.php start"
+    docker exec -it fend-php /bin/bash -c "php /home/www/icenter/bin/start.php start"
+    echo Swoole service is up and running
+    goto:EOF
+)
+
+if "%command%" == "sw-rstart" (
+    set match=true
+
+    echo Swoole service start...
+    echo.
+    docker exec -it fend-php /bin/bash -c "php /home/www/icenter/bin/start.php rstart"
     echo Swoole service is up and running
     goto:EOF
 )
@@ -71,7 +88,7 @@ if "%command%" == "sw-stop" (
 
     echo Swoole service stop...
     echo.
-    docker exec -it fend-php /bin/bash -c "php /home/www/fend/Bin/fend swoole -c /home/www/fend/App/Config/Swoole.php kill"
+    docker exec -it php /bin/bash -c "php /home/www/icenter/bin/start.php  kill"
     echo Swoole service is stopped
     goto:EOF
 )
@@ -79,7 +96,7 @@ if "%command%" == "sw-stop" (
 if "%command%" == "shell-php" (
     set match=true
 
-    docker exec -it fend-php /bin/bash
+    docker exec -it php /bin/bash
     goto:EOF
 )
 
