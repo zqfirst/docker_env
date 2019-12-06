@@ -21,6 +21,7 @@ RUN set -e \
     && tar zxvf go.tar.gz -C /usr/local/   \
     && echo "export GOROOT=/usr/local/go" >> /root/.bashrc   \
     && echo "export GO111MODULE=on" >> /root/.bashrc   \
+    && echo "export GOPROXY=https://goproxy.io" >> /root/.bashrc   \
     && echo "export GOBIN=\$GOROOT/bin" >> /root/.bashrc   \
     && echo "export PATH=\$PATH:\$GOBIN" >> /root/.bashrc   \
     && echo "export GOPATH=/home/golang" >> /root/.bashrc \

@@ -93,10 +93,17 @@ if "%command%" == "sw-stop" (
     goto:EOF
 )
 
-if "%command%" == "shell-php" (
+if "%command%" == "s-php" (
     set match=true
 
     docker exec -it php /bin/bash
+    goto:EOF
+)
+
+if "%command%" == "s-go" (
+    set match=true
+
+    docker exec -it mygo /bin/bash
     goto:EOF
 )
 
