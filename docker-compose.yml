@@ -32,6 +32,7 @@ services:
     working_dir: /data/www
     expose:
       - 9000
+      - 9572
     networks:
       - nginx-php
 
@@ -44,10 +45,10 @@ services:
     ports:
       - "9888:9888"
       - "9788:9788"
-      - "9572:9572"
       - "22:22"
     volumes:
       - ${GOPATH}:/home/golang
+      - ${HOME_DIR}.ssh:/root/.ssh
     working_dir: /home/golang/src
     expose:
       - 9888
