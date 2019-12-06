@@ -73,12 +73,12 @@ if "%command%" == "sw-start" (
     goto:EOF
 )
 
-if "%command%" == "sw-rstart" (
+if "%command%" == "sw-restart" (
     set match=true
 
     echo Swoole service start...
     echo.
-    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php rstart"
+    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php restart"
     echo Swoole service is up and running
     goto:EOF
 )
@@ -107,7 +107,7 @@ if "%command%" == "s-go" (
     goto:EOF
 )
 
-if "%command%" == "shell-nginx" (
+if "%command%" == "s-ng" (
     set match=true
 
     docker exec -it fend-nginx /bin/bash
