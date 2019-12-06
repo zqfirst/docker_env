@@ -11,13 +11,13 @@ if "%command%" == "" (
 )
 
 :: Checks if the configuration file exists
-set sourceFile=%binDir%/.env
+set sourceFile=%binDir%/../.env
 if not exist %sourceFile% (
     echo The configuration file .env is missing. Refer to .env.example to create the configuration file
     goto:EOF
 )
 
-cd %binDir%
+cd %binDir%/../
 
 if "%command%" == "init" (
 	set match=true
@@ -46,6 +46,13 @@ if "%command%" == "restart" (
 	set match=true
 
 	docker-compose restart
+    goto:EOF
+)
+
+if "%command%" == "clear" (
+    set match=true
+
+    docker system prune --all
     goto:EOF
 )
 

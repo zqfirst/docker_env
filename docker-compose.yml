@@ -9,16 +9,13 @@ services:
     container_name: php-fpm
     restart: always
     ports:
-      - "${HTTP_SWOOLE_PORT}:9572"
+      - "${HTTP_SWOOLE_PORT}:9577"
     volumes:
       - ${WORK_DIR}:/data/www
       - ${PHP_LOG_DIR}:/var/opt/remi/php73/log
     working_dir: /data/www
     expose:
       - 9000
-      - 9572
-      - 9582
-      - 9592
     networks:
       - nginx-php
 

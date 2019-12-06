@@ -4,4 +4,4 @@
 Www/*
 Nginx/conf/conf.d/*
 Nginx/logs/*
-Php/logs/
+Php/logs/**.log
