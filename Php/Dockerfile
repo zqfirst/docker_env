@@ -77,6 +77,7 @@ RUN set -ex \
     ${PHP_VERSION}-php-xml \
     ${PHP_VERSION}-php-zip \
     ${PHP_VERSION}-php-zlib \
+    ${PHP_VERSION}-php-redis \
     && ln -s /opt/remi/${PHP_VERSION}/root/bin/php /usr/bin/php \
     && ln -s /opt/remi/${PHP_VERSION}/root/bin/phpize /usr/local/bin/phpize \
     && ln -s /opt/remi/${PHP_VERSION}/root/bin/php-config /usr/local/bin/php-config \
