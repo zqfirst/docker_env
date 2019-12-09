@@ -82,9 +82,7 @@ if "%command%" == "comp" (
 )
 
 if "%command%" == "compc" (
-    docker exec -it php /bin/bash -c "composer config -g secure-http false"
-    docker exec -it php /bin/bash -c "composer config -g repositories.xeslib composer http://packagist.xesv5.com:8093"
-    docker exec -it php /bin/bash -c "composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/"
+
     echo "config success"
     call :cddir
     goto:EOF
