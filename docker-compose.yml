@@ -28,7 +28,8 @@ services:
       - ${DOCKER_ENV}${WORK_DIR}:/data/www
       - ${DOCKER_ENV}${PHP_LOG_DIR}:/var/opt/remi/php73/log
       - ${DOCKER_ENV}${PHP_WWW_LOG_DIR}:/home/logs
-      - ${HOME_DIR}.ssh:/root/.ssh
+      - ${HOME_DIR}.ssh:/root/ssh_key
+      - ${SSH_KEY}:/root/ssh.sh
     working_dir: /data/www
     expose:
       - 9000
@@ -48,7 +49,8 @@ services:
       - "22:22"
     volumes:
       - ${GOPATH}:/home/golang
-      - ${HOME_DIR}.ssh:/root/.ssh
+      - ${HOME_DIR}.ssh:/root/ssh_key
+      - ${SSH_KEY}:/root/ssh.sh
     working_dir: /home/golang/src
     expose:
       - 9888
