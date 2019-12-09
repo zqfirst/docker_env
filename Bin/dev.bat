@@ -5,7 +5,11 @@ set match=false
 set command=%1
 set container=%2
 set project=%2
+set operate=%2
 set current=%CD%
+
+
+echo.
 
 ::需要传递windows ssh key的镜像名称
 set SSH_CONTAINER=php mygo
@@ -42,7 +46,7 @@ if "%command%" == "init" (
 
 if "%command%" == "start" (
     set match=true
-
+    :: 启动所有容器
     docker-compose start
     :: 启动swoole
     docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php start"
@@ -52,7 +56,6 @@ if "%command%" == "start" (
 
 if "%command%" == "stop" (
 	set match=true
-
 	docker-compose stop
 	call :cddir
     goto:EOF
@@ -60,15 +63,15 @@ if "%command%" == "stop" (
 
 if "%command%" == "restart" (
 	set match=true
-
 	docker-compose restart
+	:: 启动swoole
+    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php start"
 	call :cddir
     goto:EOF
 )
 
 if "%command%" == "clear" (
     set match=true
-
     docker system prune --all
     call :cddir
     goto:EOF
@@ -90,71 +93,6 @@ if "%command%" == "compc" (
 if "%command%" == "log" (
     set match=true
     docker logs --tail 50 --follow --timestamps %container%
-    call :cddir
-    goto:EOF
-)
-
-if "%command%" == "sw-start" (
-    set match=true
-
-    echo Swoole service start...
-    echo.
-    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php start"
-    echo Swoole service is up and running
-    call :cddir
-    goto:EOF
-)
-
-if "%command%" == "sw-restart" (
-    set match=true
-
-    echo Swoole service start...
-    echo.
-    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php restart"
-    echo Swoole service is up and running
-    call :cddir
-    goto:EOF
-)
-
-if "%command%" == "sw-stop" (
-    set match=true
-
-    echo Swoole service stop...
-    echo.
-    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php  kill"
-    echo Swoole service is stopped
-    call :cddir
-    goto:EOF
-)
-
-if "%command%" == "s-php" (
-    set match=true
-
-    docker exec -it php /bin/bash
-    call :cddir
-    goto:EOF
-)
-
-if "%command%" == "s-go" (
-    set match=true
-
-    docker exec -it mygo /bin/bash
-    call :cddir
-    goto:EOF
-)
-
-if "%command%" == "s-ng" (
-    set match=true
-
-    docker exec -it ng /bin/bash
-    call :cddir
-    goto:EOF
-)
-
-if "%command%" == "s-redis" (
-    set match=true
-
-    docker exec -it redis /bin/bash
     call :cddir
     goto:EOF
 )
@@ -185,6 +123,30 @@ if "%command%" == "rebuild" (
     goto:EOF
 )
 
+if "%command%" == "sw" (
+    set match=true
+
+    echo Swoole service %operate%...
+    if "%operate%" == "stop" (
+        set operate=kill
+    )
+    docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php %operate%"
+    echo success
+    call :cddir
+    goto:EOF
+)
+
+if "%command%" == "s" (
+    set match=true
+
+    echo login %operate%...
+
+    docker exec -it %operate% /bin/bash
+
+    call :cddir
+    goto:EOF
+)
+
 if %match% == false (
     call :cddir
     call :printHelpMsg
@@ -204,7 +166,6 @@ goto:EOF
 :cddir
 echo.
 cd %current%
-echo.
 goto:EOF
 
 :: Print help information to console
