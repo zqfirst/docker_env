@@ -82,7 +82,6 @@ if "%command%" == "comp" (
 )
 
 if "%command%" == "compc" (
-
     echo "config success"
     call :cddir
     goto:EOF
@@ -147,7 +146,15 @@ if "%command%" == "s-go" (
 if "%command%" == "s-ng" (
     set match=true
 
-    docker exec -it fend-nginx /bin/bash
+    docker exec -it ng /bin/bash
+    call :cddir
+    goto:EOF
+)
+
+if "%command%" == "s-redis" (
+    set match=true
+
+    docker exec -it redis /bin/bash
     call :cddir
     goto:EOF
 )
