@@ -12,12 +12,11 @@ services:
     volumes:
       - ${DOCKER_ENV}${REDIS_CONF}:/usr/local/etc/redis/redis.conf
       - ${DOCKER_ENV}${REDIS_DATA}:/data
-      - ${DOCKER_ENV}${REDIS_LOGS}:/var/log/redis.log
+      - ${DOCKER_ENV}${REDIS_LOGS}:/var/log
     expose:
       - 6379
     networks:
-      - nginx-php
-      - nginx-go
+      - lnmp
 
   php:
 #    build:
@@ -40,7 +39,7 @@ services:
       - 9000
       - 9572
     networks:
-      - nginx-php
+      - lnmp
 
   go:
 #    build:
@@ -61,7 +60,7 @@ services:
       - 9888
       - 22
     networks:
-      - nginx-go
+      - lnmp
 
   nginx:
     image: nginx
@@ -83,11 +82,8 @@ services:
       - 443
       - 80
     networks:
-      - nginx-php
-      - nginx-go
+      - lnmp
 
 networks:
-  nginx-php:
-    driver: bridge
-  nginx-go:
+  lnmp:
     driver: bridge

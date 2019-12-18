@@ -69,6 +69,7 @@ if "%command%" == "clear" (
 )
 
 if "%command%" == "comp" (
+    docker exec -it php /bin/bash -c "composer config -g secure-http false"
     docker exec -it php /bin/bash -c "cd %project% && composer update"
     call :cddir
     goto:EOF
