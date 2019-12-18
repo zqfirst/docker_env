@@ -17,11 +17,12 @@ services:
       - 6379
     networks:
       - nginx-php
+      - nginx-go
 
   php:
-    build:
-      context: ./Php
-#    image: 18736050080/myphp:v1
+#    build:
+#      context: ./Php
+    image: 18736050080/myphp:v4
     container_name: php
     restart: always
     ports:
@@ -45,7 +46,7 @@ services:
 #    build:
 #      context: ./Go
     image: 18736050080/mygo:v2
-    container_name: mygo
+    container_name: go
     restart: always
     ports:
       - "9888:9888"

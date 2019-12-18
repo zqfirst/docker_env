@@ -7,12 +7,8 @@ set container=%2
 set project=%2
 set operate=%2
 set current=%CD%
-
-
-echo.
-
 ::需要传递windows ssh key的镜像名称
-set SSH_CONTAINER=php mygo
+set SSH_CONTAINER=php go
 
 ::帮助菜单
 if "%command%" == "" (
@@ -31,8 +27,6 @@ if not exist %sourceFile% (
 cd %binDir%/../
 
 if "%command%" == "init" (
-	set match=true
-
     echo Start building containers
     ::输出空行
     echo.
@@ -45,7 +39,6 @@ if "%command%" == "init" (
 )
 
 if "%command%" == "start" (
-    set match=true
     :: 启动所有容器
     docker-compose start
     :: 启动swoole
@@ -62,7 +55,6 @@ if "%command%" == "stop" (
 )
 
 if "%command%" == "restart" (
-	set match=true
 	docker-compose restart
 	:: 启动swoole
     docker exec -it php /bin/bash -c "php /data/www/icenter/bin/start.php start"
@@ -71,14 +63,12 @@ if "%command%" == "restart" (
 )
 
 if "%command%" == "clear" (
-    set match=true
     docker system prune --all
     call :cddir
     goto:EOF
 )
 
 if "%command%" == "comp" (
-    set match=true
     docker exec -it php /bin/bash -c "cd %project% && composer update"
     call :cddir
     goto:EOF
@@ -91,24 +81,7 @@ if "%command%" == "compc" (
 )
 
 if "%command%" == "log" (
-    set match=true
     docker logs --tail 50 --follow --timestamps %container%
-    call :cddir
-    goto:EOF
-)
-
-if "%command%" == "remove" (
-    set match=true
-
-    docker-compose down
-    call :cddir
-    goto:EOF
-)
-
-if "%command%" == "status" (
-    set match=true
-
-    docker-compose ps
     call :cddir
     goto:EOF
 )
@@ -124,8 +97,6 @@ if "%command%" == "rebuild" (
 )
 
 if "%command%" == "sw" (
-    set match=true
-
     echo Swoole service %operate%...
     if "%operate%" == "stop" (
         set operate=kill
@@ -136,23 +107,21 @@ if "%command%" == "sw" (
     goto:EOF
 )
 
+if "%command%" == "ip" (
+    docker inspect %container%
+    call :cddir
+    goto:EOF
+)
+
 if "%command%" == "s" (
-    set match=true
-
     echo login %operate%...
-
     docker exec -it %operate% /bin/bash
-
     call :cddir
     goto:EOF
 )
 
-if %match% == false (
-    call :cddir
-    call :printHelpMsg
-    goto:EOF
-)
-
+call :cddir
+call :printHelpMsg
 goto:EOF
 
 :sshkey
@@ -181,12 +150,11 @@ echo    clear       clear all images and containers
 echo    comp        update composer depend
 echo    compc       set composer to default config
 echo    restart     restart all container
-echo    status      list all container
-echo    sw-start    start swoole serve
-echo    sw-stop     stop swoole serve
+echo    sw;start    start swoole serve
+echo    sw;stop     stop swoole serve
 echo    rebuild     rebuild all containers from local Dockerfile
-echo    remove      remove all containers
-echo    s-ng        login shell on nginx docker conatainer
-echo    s-php       login shell on php docker conatainer
+echo    s;ng        login shell on nginx docker conatainer
+echo    s;php       login shell on php docker conatainer
+echo    s;go      login shell on go docker conatainer
 echo.
 goto:EOF
