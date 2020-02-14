@@ -55,6 +55,7 @@ services:
       - ${GOPATH}:/home/golang
       - ${HOME_DIR}.ssh:/root/ssh_key
       - ${SSH_KEY}:/root/ssh.sh
+      - ${DOCKER_ENV}${GO_LOGS}:/home/logs
     working_dir: /home/golang/src
     expose:
       - 9888
