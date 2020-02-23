@@ -2,6 +2,34 @@ version: '3'
 
 services:
 
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+#    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+#    ports:
+#      - "2181:2181"
+    networks:
+      - lnmp
+
+  kafka:
+    image: confluentinc/cp-kafka
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:  # 增加
+      - 9092:9092  # 增加
+    environment:
+      KAFKA_BROKER_NO: 1
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.0.103
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.0.103:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_HEAP_OPTS: "-Xmx512M -Xms16M"
+    networks:
+      - lnmp
+
   redis:
     image : redis:5.0
     container_name: redis
@@ -44,7 +72,7 @@ services:
   go:
 #    build:
 #      context: ./Go
-    image: 18736050080/mygo:v2
+    image: 18736050080/mygo:v3
     container_name: go
     restart: always
     ports:

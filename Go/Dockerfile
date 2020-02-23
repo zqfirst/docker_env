@@ -25,6 +25,7 @@ RUN set -e \
     && echo "export GOBIN=\$GOROOT/bin" >> /root/.bashrc   \
     && echo "export PATH=\$PATH:\$GOBIN" >> /root/.bashrc   \
     && echo "export GOPATH=/home/golang" >> /root/.bashrc \
+    && echo "export TZ=\"Asia/Shanghai\"" >> /root/.bashrc \
     && rm -rf /tmp/* /var/cache/* /usr/share/man /usr/share/go \
     && echo -e "\n\033[42;37m Build Completed :).\033[0m\n"
 
