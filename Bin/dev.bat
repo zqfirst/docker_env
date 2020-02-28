@@ -30,7 +30,7 @@ if "%command%" == "init" (
     echo Start building containers
     ::输出空行
     echo.
-    docker-compose up -d --force-recreate
+    docker-compose up -d --force-recreate --remove-orphans
 	::加载ssh key
     call :sshkey
     ::恢复执行命令之前的目录
@@ -68,8 +68,15 @@ if "%command%" == "clear" (
     goto:EOF
 )
 
+if "%command%" == "utf8" (
+    chcp 65001
+    call :cddir
+    goto:EOF
+)
+
 if "%command%" == "comp" (
     docker exec -it php /bin/bash -c "composer config -g secure-http false"
+    docker exec -it php /bin/bash -c "composer config -g repositories.xeslib composer http://packagist.xesv5.com:8093"
     docker exec -it php /bin/bash -c "composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/"
     docker exec -it php /bin/bash -c "cd %project% && composer update"
     call :cddir

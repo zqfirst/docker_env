@@ -8,6 +8,7 @@ services:
     container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+      LC_ALL: en_US.UTF-8
 #    ports:
 #      - "2181:2181"
     networks:
@@ -27,6 +28,18 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_HEAP_OPTS: "-Xmx512M -Xms16M"
+      LC_ALL: en_US.UTF-8
+    networks:
+      - lnmp
+
+  es:
+    image: elasticsearch:6.4.3
+    container_name: es
+    environment:
+      LC_ALL: en_US.UTF-8
+    ports:
+      - 9200:9200
+      - 9300:9300
     networks:
       - lnmp
 
@@ -43,6 +56,8 @@ services:
       - ${DOCKER_ENV}${REDIS_LOGS}:/var/log
     expose:
       - 6379
+    environment:
+      LC_ALL: en_US.UTF-8
     networks:
       - lnmp
 
@@ -61,6 +76,8 @@ services:
       - ${HOME_DIR}.ssh:/root/ssh_key
       - ${SSH_KEY}:/root/ssh.sh
     working_dir: /data/www
+    environment:
+      LC_ALL: en_US.UTF-8
     links:
       - redis:redis
     expose:
@@ -85,13 +102,15 @@ services:
       - ${SSH_KEY}:/root/ssh.sh
       - ${DOCKER_ENV}${GO_LOGS}:/home/logs
     working_dir: /home/golang/src
+    environment:
+      LC_ALL: en_US.UTF-8
     expose:
       - 9888
       - 22
     networks:
       - lnmp
 
-  nginx:
+  nginx.com:
     image: nginx
     container_name: ng
     restart: always
@@ -104,6 +123,8 @@ services:
       - ${DOCKER_ENV}${NGINX_CONF_DIR}/nginx.conf:/etc/nginx/nginx.conf
       - ${DOCKER_ENV}${NGINX_CONF_DIR}/conf.d:/etc/nginx/conf.d
     working_dir: /data/www
+    environment:
+      LC_ALL: en_US.UTF-8
     ports:
       - "${HTTP_PORT}:80"
       - "${HTTPS_PORT}:443"

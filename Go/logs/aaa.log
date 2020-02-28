@@ -1,0 +1,40 @@
+2020/02/28 17:37:55 CONF INIT,path:../conf/conf.ini
+=== RUN   TestAddWrongTestLog
+--- FAIL: TestAddWrongTestLog (6.17s)
+    methods_test.go:24: 50000|Post http://libartsapi.xesv5.com/StuWrongTest/addWrongTestLog: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host
+=== RUN   TestSearchWrongTest
+[17:38:01 CST 2020/02/28] [EROR] (methods.go:46:	22e2ea82faf7) Libartsapi	methods:AddWrongTestLog,PostParam err:50000|Post http://libartsapi.xesv5.com/StuWrongTest/addWrongTestLog: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host,req:{Data:[{"category":"6","course_id":70384,"course_name":"【测试】【测试】理科测试课-1","course_source":2,"grade_ids":"11,12,13","knowledge_ids":"","material_id":0,"plan_id":458756,"plan_name":"9.26下午-理科测试14154","play_url":"","src_type":2,"stu_answer":"[\"11\"]","stu_cou_id":31021616,"stu_id":58630,"subject_id":"2","test_id":"805344","test_source":6,"thumbnail":""}]}
+--- FAIL: TestSearchWrongTest (0.22s)
+    methods_test.go:34: 50000|Post http://libartsapi.xesv5.com/StuWrongTest/SearchWrongTest: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host
+FAIL
+ok  	command-line-arguments	(cached)
+2020/02/28 17:37:55 CONF INIT,path:../conf/conf.ini
+=== RUN   TestAddWrongTestLog
+--- FAIL: TestAddWrongTestLog (6.17s)
+    methods_test.go:24: 50000|Post http://libartsapi.xesv5.com/StuWrongTest/addWrongTestLog: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host
+=== RUN   TestSearchWrongTest
+[17:38:01 CST 2020/02/28] [EROR] (methods.go:46:	22e2ea82faf7) Libartsapi	methods:AddWrongTestLog,PostParam err:50000|Post http://libartsapi.xesv5.com/StuWrongTest/addWrongTestLog: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host,req:{Data:[{"category":"6","course_id":70384,"course_name":"【测试】【测试】理科测试课-1","course_source":2,"grade_ids":"11,12,13","knowledge_ids":"","material_id":0,"plan_id":458756,"plan_name":"9.26下午-理科测试14154","play_url":"","src_type":2,"stu_answer":"[\"11\"]","stu_cou_id":31021616,"stu_id":58630,"subject_id":"2","test_id":"805344","test_source":6,"thumbnail":""}]}
+--- FAIL: TestSearchWrongTest (0.22s)
+    methods_test.go:34: 50000|Post http://libartsapi.xesv5.com/StuWrongTest/SearchWrongTest: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host
+FAIL
+ok  	command-line-arguments	(cached)
+2020/02/28 17:37:55 CONF INIT,path:../conf/conf.ini
+=== RUN   TestAddWrongTestLog
+--- FAIL: TestAddWrongTestLog (6.17s)
+    methods_test.go:24: 50000|Post http://libartsapi.xesv5.com/StuWrongTest/addWrongTestLog: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host
+=== RUN   TestSearchWrongTest
+[17:38:01 CST 2020/02/28] [EROR] (methods.go:46:	22e2ea82faf7) Libartsapi	methods:AddWrongTestLog,PostParam err:50000|Post http://libartsapi.xesv5.com/StuWrongTest/addWrongTestLog: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host,req:{Data:[{"category":"6","course_id":70384,"course_name":"【测试】【测试】理科测试课-1","course_source":2,"grade_ids":"11,12,13","knowledge_ids":"","material_id":0,"plan_id":458756,"plan_name":"9.26下午-理科测试14154","play_url":"","src_type":2,"stu_answer":"[\"11\"]","stu_cou_id":31021616,"stu_id":58630,"subject_id":"2","test_id":"805344","test_source":6,"thumbnail":""}]}
+--- FAIL: TestSearchWrongTest (0.22s)
+    methods_test.go:34: 50000|Post http://libartsapi.xesv5.com/StuWrongTest/SearchWrongTest: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host
+FAIL
+ok  	command-line-arguments	(cached)
+2020/02/28 17:37:55 CONF INIT,path:../conf/conf.ini
+=== RUN   TestAddWrongTestLog
+--- FAIL: TestAddWrongTestLog (6.17s)
+    methods_test.go:24: 50000|Post http://libartsapi.xesv5.com/StuWrongTest/addWrongTestLog: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host
+=== RUN   TestSearchWrongTest
+[17:38:01 CST 2020/02/28] [EROR] (methods.go:46:	22e2ea82faf7) Libartsapi	methods:AddWrongTestLog,PostParam err:50000|Post http://libartsapi.xesv5.com/StuWrongTest/addWrongTestLog: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host,req:{Data:[{"category":"6","course_id":70384,"course_name":"【测试】【测试】理科测试课-1","course_source":2,"grade_ids":"11,12,13","knowledge_ids":"","material_id":0,"plan_id":458756,"plan_name":"9.26下午-理科测试14154","play_url":"","src_type":2,"stu_answer":"[\"11\"]","stu_cou_id":31021616,"stu_id":58630,"subject_id":"2","test_id":"805344","test_source":6,"thumbnail":""}]}
+--- FAIL: TestSearchWrongTest (0.22s)
+    methods_test.go:34: 50000|Post http://libartsapi.xesv5.com/StuWrongTest/SearchWrongTest: dial tcp: lookup libartsapi.xesv5.com on 127.0.0.11:53: no such host
+FAIL
+ok  	command-line-arguments	(cached)

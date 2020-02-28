@@ -42,6 +42,7 @@ RUN set -ex \
     && yum --enablerepo=remi -y install \
     ${PHP_VERSION}-php \
     ${PHP_VERSION}-php-pear \
+    ${PHP_VERSION}-php-amqp \
     ${PHP_VERSION}-php-bcmath \
     ${PHP_VERSION}-php-pecl-jsond-devel \
     ${PHP_VERSION}-php-mysqlnd \
