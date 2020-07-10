@@ -1,0 +1,1 @@
+Time:2020-07-09 20:52:12 Tag:WriteToOaLog Text:Result:push fail, Err:50000|队列preparationToOA error: 50000|preparationToOA rabbitmq connect error: dial tcp: lookup public-common-rabbit on 127.0.0.11:53: no such host , Data:{"catalogId":448359,"courseId":61633,"planId":649879,"stuCouId":9672154,"stuId":57378,"ts":1594299130,"type":12} 

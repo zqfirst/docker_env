@@ -4,13 +4,12 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper
-#    image: wurstmeister/zookeeper
+    #    image: wurstmeister/zookeeper
     container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
-      LC_ALL: en_US.UTF-8
-#    ports:
-#      - "2181:2181"
+    #    ports:
+    #      - "2181:2181"
     networks:
       - lnmp
 
@@ -28,7 +27,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_HEAP_OPTS: "-Xmx512M -Xms16M"
-      LC_ALL: en_US.UTF-8
     networks:
       - lnmp
 
@@ -43,8 +41,32 @@ services:
     networks:
       - lnmp
 
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    command:
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+      --max_allowed_packet=128M
+      --sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO"
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_HOST: 172.*.*.*
+    ports:
+      - 3306:3306
+    volumes:
+      - ${DOCKER_ENV}${MYSQL_DATA}:/var/lib/mysql
+      - ${DOCKER_ENV}${MYSQL_CONF}:/etc/mysql/conf.d
+      - ${DOCKER_ENV}${MYSQL_LOG}:/home/logs
+    networks:
+      - lnmp
+
   redis:
-    image : redis:5.0
+    image: redis:5.0
     container_name: redis
     command: redis-server /usr/local/etc/redis/redis.conf
     restart: always
@@ -62,8 +84,8 @@ services:
       - lnmp
 
   php:
-#    build:
-#      context: ./Php
+    #    build:
+    #      context: ./Php
     image: 18736050080/myphp:v4
     container_name: php
     restart: always
@@ -87,11 +109,13 @@ services:
       - lnmp
 
   go:
-#    build:
-#      context: ./Go
+    #    build:
+    #      context: ./Go
     image: 18736050080/mygo:v3
     container_name: go
     restart: always
+    depends_on:
+      - mysql
     ports:
       - "9888:9888"
       - "9788:9788"

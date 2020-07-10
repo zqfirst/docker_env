@@ -7,6 +7,7 @@ set container=%2
 set project=%2
 set operate=%2
 set current=%CD%
+set port=%2
 ::需要传递windows ssh key的镜像名称
 set SSH_CONTAINER=php go
 
