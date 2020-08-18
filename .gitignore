@@ -8,5 +8,8 @@ Php/logs/*
 Php/logs1/*
 Redis/data/*
 Redis/logs/*
+Redis/data1/*
+Redis/logs1/*
 Mysql/data/*
 Mysql/log/*
+Go/logs/*

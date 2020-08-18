@@ -109,9 +109,9 @@ services:
       - lnmp
 
   go:
-    #    build:
-    #      context: ./Go
-    image: 18736050080/mygo:v3
+#    build:
+#      context: ./Go
+    image: 18736050080/mygo:v4
     container_name: go
     restart: always
     depends_on:
